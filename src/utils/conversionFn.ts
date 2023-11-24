@@ -4,20 +4,24 @@ interface ConversionProps{
   currency: number
   typePurchase: string
   currencyAsk: string
-  setState: (value: number | boolean) => void
+  setResult: (value: number) => void
+  setShowResult: (value: boolean) => void
 }
 
-export const handleConversion = ({ currency, typePurchase, currencyAsk, setState }: ConversionProps) => {
+export const handleConversion = ({ currency, typePurchase, currencyAsk, setResult, setShowResult }: ConversionProps) => {
   if (currency) {
+    let result: number;
+
     if (typePurchase === "dinheiro") {
-      setState((currency + (currency * stateTax)) * (Number(currencyAsk) + (currency * dinheiroIOF)));
+      result = (currency + (currency * stateTax)) * (Number(currencyAsk) + (currency * dinheiroIOF));
     }
 
     if (typePurchase === "cartão") {
-      setState((currency + (currency * stateTax) + (currency * cartaoIOF)) * Number(currencyAsk));
+      result = (currency + (currency * stateTax) + (currency * cartaoIOF)) * Number(currencyAsk);
     }
 
-    setState(true)
+    setResult(result);
+    setShowResult(true)
   } else {
     alert("Preencha o valor em dólar e escolha o tipo de compra");
   }
