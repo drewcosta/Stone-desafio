@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 interface Props {
-  typePurchase: "dinheiro" | "cartao"
-  setTypePurchase: (value: "dinheiro" | "cartao") => void
+  typePurchase: "dinheiro" | "cartão"
+  setTypePurchase: (value: "dinheiro" | "cartão") => void
   selected: boolean
 }
 
@@ -22,11 +22,11 @@ export const RadioBlock = ({ typePurchase, setTypePurchase }: Props) => {
             <FieldRadioLabel htmlFor="dinheiro">Dinheiro</FieldRadioLabel>
           </FieldRadio>
 
-          <FieldRadio onClick={() => setTypePurchase("cartao")}>
+          <FieldRadio onClick={() => setTypePurchase("cartão")}>
             <FieldInputRadio
               type="radio"
               id="cartao"
-              selected={typePurchase === "cartao"}
+              selected={typePurchase === "cartão"}
             />
             <FieldRadioLabel htmlFor="cartao">Cartão</FieldRadioLabel>
           </FieldRadio>

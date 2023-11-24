@@ -1,36 +1,44 @@
 import styled from 'styled-components'
-import { FormBlock } from "./card-form-block"
-import { RadioBlock } from "./card-radio-block"
-import { Button } from './card-button'
-import { useExchangeRates } from '../../hooks/useExchangeRates'
-import transfer from '../../assets/transfer.svg'
 import { useState } from 'react'
+
+import { CurrencyCardResult } from './currency-card-result'
+import { useExchangeRates } from '../../hooks/useExchangeRates'
+import { handleConversion } from '../../utils/conversionFn'
+import { CurrencyCardForm } from './currency-card-form'
 
 export const CurrencyCard = () => {
   const { data } = useExchangeRates()
-
   const [dolar, setDolar] = useState<number>()
-  const [typePurchase, setTypePurchase] = useState<"dinheiro" | "cartao">("dinheiro")
+  const [typePurchase, setTypePurchase] = useState<"dinheiro" | "cartão">("dinheiro")
+  const [total, setTotal] = useState<number>(0)
+  const [showResult, setShowResult] = useState(false)
 
-  console.log(typePurchase)
-  console.log(dolar)
+  const ConversionProps = {
+    currency: dolar,
+    currencyAsk: data?.ask,
+    typePurchase: typePurchase,
+    setResult: setTotal,
+    setShowResult: setShowResult
+  }
 
   return (
     <Container>
-
-      <FormBlock
-        dolar={dolar}
-        setDolar={setDolar}
-        typePurchase={typePurchase}
-      />
-
-      <RadioBlock
-        typePurchase={typePurchase}
-        setTypePurchase={setTypePurchase}
-        selected={!!typePurchase}
-      />
-
-      <Button selected={!!dolar} imagem={transfer} title='Converter' />
+      {showResult ?
+        (
+          <CurrencyCardResult
+            onClick={() => setShowResult(false)}
+            typePurchase={typePurchase}
+            total={total}
+          />
+        ) : (
+          <CurrencyCardForm
+            dolar={dolar}
+            typePurchase={typePurchase}
+            setDolar={setDolar}
+            setTypePurchase={setTypePurchase}
+            onClick={() => handleConversion(ConversionProps)}
+          />
+        )}
     </Container>
   )
 }

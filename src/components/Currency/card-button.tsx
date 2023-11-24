@@ -5,11 +5,12 @@ interface Props{
   imagem?: string
   title: string
   selected?: boolean
+  onClick: () => void
 }
 
-export const Button = ({ imagem, title, selected }: Props) => {
+export const Button = ({ imagem, title, selected, onClick }: Props) => {
   return (
-    <ButtonCard selected={selected}>
+    <ButtonCard onClick={onClick} selected={selected}>
       {imagem && <Image src={imagem} alt={title}/>}
       <ButtonTitle>{title}</ButtonTitle>
     </ButtonCard>

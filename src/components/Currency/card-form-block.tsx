@@ -1,20 +1,13 @@
-import { useMemo } from 'react'
 import styled from 'styled-components'
+import { taxPercentage } from '../../utils/filter-percentage'
 
 interface Props {
   dolar: number
   setDolar: (value: number) => void
-  typePurchase: "dinheiro" | "cartao"
+  typePurchase: "dinheiro" | "cartão"
 }
 
 export const FormBlock = ({ dolar, setDolar, typePurchase }: Props) => {
-
-  const taxPercentage = useMemo(() => {
-    if (typePurchase === "dinheiro") return "taxa espécie";
-    if (typePurchase === "cartao") return "taxa cartão";
-    return "0%";
-  }, [typePurchase]);
-  
 
   return (
     <FormBlockContainer>
@@ -24,7 +17,7 @@ export const FormBlock = ({ dolar, setDolar, typePurchase }: Props) => {
           type="number"
           placeholder="$1,00"
           value={dolar}
-          onChange={(e) => setDolar(e.target.value)}
+          onChange={(e) => setDolar(Number(e.target.value))}
         />
       </Field>
       <Field label="Taxa do Estado">
@@ -32,7 +25,7 @@ export const FormBlock = ({ dolar, setDolar, typePurchase }: Props) => {
         <FieldInputText
           type="text"
           placeholder="0%"
-          value={taxPercentage}
+          value={taxPercentage(typePurchase)}
           disabled
         />
       </Field>
