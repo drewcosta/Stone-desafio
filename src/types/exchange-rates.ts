@@ -3,5 +3,6 @@ export interface ExchangeRate {
   codein: string,
   name: string,
   bid: string,
+  ask: string,
   create_date: string,
 };
