@@ -15,6 +15,7 @@ export const FormBlock = ({ dolar, setDolar, typePurchase }: Props) => {
         <FieldText>Dólar</FieldText>
         <FieldInputText
           type="number"
+          min="0"
           placeholder="$1,00"
           value={dolar}
           onChange={(e) => setDolar(Number(e.target.value))}

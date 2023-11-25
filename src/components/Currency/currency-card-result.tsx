@@ -3,6 +3,7 @@ import { Button } from './card-button'
 import arrowLeft from '../../assets/arrow-left.svg'
 import { useExchangeRates } from '../../hooks/useExchangeRates'
 import { taxPercentage } from '../../utils/filter-percentage'
+import { formatCurrency } from '../../utils/format-currency'
 
 interface Props {
   typePurchase: "dinheiro" | "cartão"
@@ -14,7 +15,7 @@ export const CurrencyCardResult = ({ onClick, typePurchase, total }: Props) => {
   const { data } = useExchangeRates()
 
   const dolarExchange = Number(data?.ask).toFixed(2).replace('.', ',')
-  const totalExchange = total.toFixed(2).replace('.', ',')
+  const totalExchange = formatCurrency(total)
   const percentage = taxPercentage(typePurchase)
 
   return (
